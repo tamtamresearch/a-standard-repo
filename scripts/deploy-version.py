@@ -104,6 +104,18 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
                 capture=not verbose,
             )
 
+            # Configure git user for commits in temp directory
+            run_cmd(
+                ["git", "config", "user.name", "deploy-script"],
+                cwd=gh_pages_dir,
+                capture=not verbose,
+            )
+            run_cmd(
+                ["git", "config", "user.email", "deploy@local"],
+                cwd=gh_pages_dir,
+                capture=not verbose,
+            )
+
             # Create initial README
             readme = gh_pages_dir / "README.md"
             readme.write_text(
