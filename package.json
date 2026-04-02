@@ -4,7 +4,8 @@
   "description": "Proof of Concept: Versioned Standards Documentation",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-spec.js",
+    "build": "mkdir -p build && respec source/index.html build/index.html --timeout 60 --verbose",
+    "build:custom": "node scripts/build-spec.js",
     "serve": "http-server source -p 8000 -o",
     "deploy": "python scripts/deploy-version.py",
     "test": "node scripts/validate-spec.js",
@@ -12,7 +13,6 @@
   },
   "devDependencies": {
     "respec": "^35.9.0",
-    "puppeteer": "^23.0.0",
     "http-server": "^14.1.1"
   },
   "engines": {
