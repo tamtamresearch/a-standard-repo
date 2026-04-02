@@ -68,7 +68,21 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
     remote_url = run_cmd(
         ["git", "config", "--get", "remote.origin.url"], check=True, capture=True
     )
-    print(f"   Remote: {remote_url}")
+
+    # If running in GitHub Actions, use token for authentication
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if github_token and "https://github.com" in remote_url:
+        # Insert token into HTTPS URL: https://token@github.com/...
+        remote_url = remote_url.replace(
+            "https://github.com", f"https://x-access-token:{github_token}@github.com"
+        )
+        if verbose:
+            print(f"   Using GitHub token for authentication")
+
+    if verbose:
+        print(
+            f"   Remote: {remote_url.replace(github_token, '***') if github_token else remote_url}"
+        )
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)
