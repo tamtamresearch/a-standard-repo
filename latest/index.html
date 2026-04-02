@@ -1,0 +1,1046 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}</style><link rel="preconnect" crossorigin="anonymous" href="https://www.w3.org" class="removeOnSave"><link rel="preload" as="script" href="https://www.w3.org/scripts/TR/2021/fixup.js" class="removeOnSave"><link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2021/base.css" class="removeOnSave"><link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" class="removeOnSave"><link rel="preload" as="image" crossorigin="anonymous" href="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" class="removeOnSave"><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/base.css" class="removeOnSave">
+    <meta charset="utf-8">
+    <title>Example Standard Specification</title>
+    
+    <!-- Load ReSpec from W3C CDN -->
+    
+    
+    <!-- Load configuration -->
+    
+<style id="respec-ui-styles" class="removeOnSave">.respec-modal .close-button{position:absolute;z-index:inherit;padding:.2em;font-weight:700;cursor:pointer;margin-left:5px;border:none;background:0 0}
+#respec-ui{position:fixed;display:flex;flex-direction:row-reverse;top:20px;right:20px;width:202px;text-align:right;z-index:9000}
+#respec-pill,.respec-info-button{height:2.4em;background:#fff;background:var(--bg,#fff);color:#787878;color:var(--tocnav-normal-text,#787878);border:1px solid #ccc;box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);box-shadow:1px 1px 8px 0 var(--tocsidebar-shadow,rgba(100,100,100,.5));padding:.2em 0}
+.respec-info-button{border:none;opacity:.75;border-radius:2em;margin-right:1em;min-width:3.5em;will-change:opacity}
+.respec-info-button:focus,.respec-info-button:hover{opacity:1;transition:opacity .2s}
+#respec-pill{width:4.8em}
+#respec-pill:not(:disabled){animation:respec-fadein .6s ease-in-out}
+@keyframes respec-fadein{
+from{margin-top:-1.2em;border-radius:50%;border:.2em solid rgba(100,100,100,.5);box-shadow:none;height:4.8em}
+to{margin-top:0;border:1px solid #ccc;border-radius:0;box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);height:2.4em}
+}
+#respec-pill:disabled{margin-top:-1.2em;position:relative;border:none;box-shadow:none;border-radius:50%;width:4.8em;height:4.8em;padding:0}
+#respec-pill:disabled::after{position:absolute;content:'';inset:-.2em;border-radius:50%;border:.2em solid rgba(100,100,100,.5);border-left:.2em solid transparent;animation:respec-spin .5s infinite linear}
+@media (prefers-reduced-motion){
+#respec-pill:not(:disabled){animation:none}
+#respec-pill:disabled::after{animation:none;border-left:.2em solid rgba(100,100,100,.5)}
+}
+@keyframes respec-spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+.respec-hidden{visibility:hidden;opacity:0;transition:visibility 0s .2s,opacity .2s linear}
+.respec-visible{visibility:visible;opacity:1;transition:opacity .2s linear}
+#respec-pill:focus,#respec-pill:hover{color:#000;background-color:#f5f5f5;transition:color .2s}
+#respec-menu{position:absolute;margin:0;padding:0;font-family:sans-serif;background:var(--bg,#fff);color:var(--text,#000);box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);width:200px;display:none;text-align:left;margin-top:32px;font-size:.8em}
+#respec-menu:not([hidden]){display:block}
+#respec-menu li{list-style-type:none;margin:0;padding:0}
+.respec-save-buttons{display:grid;grid-template-columns:repeat(auto-fill,minmax(47%,2fr));grid-gap:.5cm;padding:.5cm}
+.respec-save-button:link{padding-top:16px;color:var(--def-text,#fff);background:var(--def-bg,#2a5aa8);justify-self:stretch;height:1cm;text-decoration:none;text-align:center;font-size:inherit;border:none;border-radius:.2cm}
+.respec-save-button:link:hover{color:var(--def-text,#fff);background:var(--defrow-border,#2a5aa8);padding:0;margin:0;border:0;padding-top:16px}
+.respec-save-button:link:focus{background:var(--tocnav-active-bg,#193766);color:var(--tocnav-active-text,#000)}
+#respec-pill:focus,#respec-ui button:focus,.respec-option:focus{outline:0;outline-style:none}
+#respec-pill-error{background-color:red;color:#fff}
+#respec-pill-warning{background-color:orange;color:#fff}
+.respec-error-list,.respec-warning-list{margin:0;padding:0;font-family:sans-serif;font-size:.85em}
+.respec-warning-list{background-color:#fffbe6}
+:is(.respec-warning-list,.respec-error-list)>li{list-style-type:none;margin:0;padding:.5em 0;padding-left:2em;padding-right:.5em}
+:is(.respec-warning-list,.respec-error-list)>li+li{margin-top:.5rem}
+:is(.respec-warning-list,.respec-error-list)>li:before{position:absolute;left:.4em}
+:is(.respec-warning-list,.respec-error-list) p{padding:0;margin:0}
+.respec-warning-list>li{color:#5c3b00;border-bottom:thin solid #fff5c2}
+.respec-error-list,.respec-error-list li{background-color:#fff0f0}
+.respec-warning-list>li::before{content:"⚠️"}
+.respec-error-list>li::before{content:"💥"}
+.respec-error-list>li{color:#5c3b00;border-bottom:thin solid #ffd7d7}
+:is(.respec-warning-list,.respec-error-list)>li li{list-style:disc}
+#respec-overlay{display:block;position:fixed;z-index:10000;top:0;left:0;height:100%;width:100%;background:#000}
+.respec-show-overlay{transition:opacity .2s linear;opacity:.5}
+.respec-hide-overlay{transition:opacity .2s linear;opacity:0}
+.respec-modal{display:block;position:fixed;z-index:11000;top:10%;background:var(--bg,#fff);color:var(--text,#000);border:5px solid #666;border-color:var(--tocsidebar-shadow,#666);min-width:20%;padding:0;max-height:80%;overflow-y:auto;margin:0 -.5cm;left:20%;max-width:75%;min-width:60%}
+.respec-modal h3{margin:0;padding:.2em;left:0!important;text-align:center;background:var(--tocsidebar-shadow,#ddd);color:var(--text,#000);font-size:1em}
+#respec-menu button.respec-option{background:var(--bg,#fff);color:var(--text,#000);border:none;width:100%;text-align:left;font-size:inherit;padding:1.2em 1.2em}
+#respec-menu button.respec-option:hover{background-color:var(--tocnav-hover-bg,#eee);color:var(--tocnav-hover-text,#000)}
+.respec-cmd-icon{padding-right:.5em}
+#respec-ui button.respec-option:first-child{margin-top:0}
+#respec-ui button.respec-option:last-child{border:none;border-radius:inherit;margin-bottom:0}
+.respec-button-copy-paste{position:absolute;height:28px;width:40px;cursor:pointer;background-image:linear-gradient(#fcfcfc,#eee);border:1px solid #90b8de;border-left:0;border-radius:0 0 3px 0;-webkit-user-select:none;user-select:none;-webkit-appearance:none;top:0;left:127px}
+@media print{
+#respec-ui{display:none}
+}
+.respec-iframe{width:100%;min-height:550px;height:100%;overflow:hidden;padding:0;margin:0;border:0}
+.respec-iframe:not(.ready){background:url(https://respec.org/xref/loader.gif) no-repeat center}
+.respec-iframe+a[href]{font-size:.9rem;float:right;margin:0 .5em .5em;border-bottom-width:1px}
+p:is(.respec-hint,.respec-occurrences){display:block;margin-top:.5em}
+.respec-plugin{text-align:right;color:rgb(120,120,120,.5);font-size:.6em}</style><style id="respec-mainstyle">@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:italic}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}</style><link rel="dns-prefetch" crossorigin="anonymous" href="https://api.specref.org" class="removeOnSave"><link rel="preconnect" crossorigin="anonymous" href="https://respec.org" class="removeOnSave"><link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-highlight.js" class="removeOnSave"><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD"><meta name="color-scheme" content="light"><meta name="description" content="This specification defines an example standard for demonstrating
+        versioned documentation management using ReSpec and GitHub Pages.
+        It provides a proof of concept for maintaining multiple versions
+        of standards documentation in a clean, automated way."><style>.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}</style><style>var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}</style><style>var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}</style><meta name="monetization" content="$respec.org" class="removeOnSave"><script id="initialUserConfig" type="application/json">{
+  "specStatus": "unofficial",
+  "shortName": "example-standard",
+  "publishDate": "2026-04-02",
+  "thisVersion": "https://tamtamresearch.github.io/a-standard-repo/v3.0/",
+  "latestVersion": "https://tamtamresearch.github.io/a-standard-repo/latest/",
+  "prevVersion": "https://tamtamresearch.github.io/a-standard-repo/v2.0/",
+  "edDraftURI": "https://github.com/tamtamresearch/a-standard-repo",
+  "editors": [
+    {
+      "name": "Example Editor",
+      "mailto": "[email protected]",
+      "company": "Example Organization",
+      "companyURL": "https://example.org",
+      "url": "mailto:[email protected]"
+    }
+  ],
+  "github": {
+    "repoURL": "https://github.com/tamtamresearch/a-standard-repo",
+    "branch": "main"
+  },
+  "localBiblio": {
+    "DCAT": {
+      "title": "Data Catalog Vocabulary (DCAT) - Version 3",
+      "href": "https://www.w3.org/TR/vocab-dcat-3/",
+      "authors": [
+        "Riccardo Albertoni",
+        "David Browning",
+        "Simon Cox",
+        "Alejandra Gonzalez Beltran",
+        "Andrea Perego",
+        "Peter Winstanley"
+      ],
+      "publisher": "W3C",
+      "date": "2024"
+    }
+  },
+  "maxTocLevel": 3,
+  "format": "markdown",
+  "noRecTrack": true,
+  "subtitle": "Version 3.0 - Production Ready",
+  "copyrightStart": "2026",
+  "license": "cc-by",
+  "publishISODate": "2026-04-02T00:00:00.000Z",
+  "generatedSubtitle": "Unofficial Draft 02 April 2026"
+}</script></head>
+<body class="h-entry toc-inline"><p id="toc-nav"><a id="toc-jump" href="#toc" aria-labelledby="toc-jump-text"><span aria-hidden="true">↑</span> <span id="toc-jump-text">Jump to Table of Contents</span></a><a id="toc-toggle" href="#toc" aria-labelledby="toc-expand-text"><span aria-hidden="true">→</span> <span id="toc-expand-text">Pop Out Sidebar</span></a></p><div id="respec-ui" class="removeOnSave"><button id="respec-pill" aria-controls="respec-menu" aria-expanded="false" aria-haspopup="true" aria-label="ReSpec Menu">ReSpec</button><ul id="respec-menu" role="menu" aria-labelledby="respec-pill" hidden=""><li role="menuitem"><button class="respec-option" id="respec-button-search-specref">
+      <span class="respec-cmd-icon" aria-hidden="true">🔎<!---0.502246%--></span> Search Specref<!---0.502246%-->…
+    </button><!---0.502246%--></li><li role="menuitem"><button class="respec-option" id="respec-button-search-definitions">
+      <span class="respec-cmd-icon" aria-hidden="true">📚<!---0.502246%--></span> Search definitions<!---0.502246%-->…
+    </button><!---0.502246%--></li><li role="menuitem"><button class="respec-option" id="respec-button-about-35.9.0">
+      <span class="respec-cmd-icon" aria-hidden="true">ℹ️<!---0.502246%--></span> About 35.9.0<!---0.502246%-->…
+    </button><!---0.502246%--></li><li role="menuitem"><button class="respec-option" id="respec-button-export">
+      <span class="respec-cmd-icon" aria-hidden="true">💾<!---0.502246%--></span> Export<!---0.502246%-->…
+    </button><!---0.502246%--></li></ul></div><div class="head">
+    <!---0.502246%-->
+    <h1 id="title" class="title">Example Standard Specification</h1><!---0.502246%--> <h2 id="subtitle" class="subtitle">Version 3.0 - Production Ready</h2><!---0.502246%-->
+    <p id="w3c-state">Unofficial Draft<!---0.502246%--><!---0.502246%--> <!---0.502246%--><time class="dt-published" datetime="2026-04-02">02 April 2026<!---0.502246%--></time><!---0.502246%--><!---0.502246%--></p>
+    <details open="">
+      <summary>More details about this document<!---0.502246%--></summary>
+      <dl>
+        <dt>This version:<!---0.502246%--></dt><dd>
+                <a class="u-url" href="https://tamtamresearch.github.io/a-standard-repo/v3.0/">https://tamtamresearch.github.io/a-standard-repo/v3.0/<!---0.502246%--></a>
+              </dd><!---0.502246%-->
+        <dt>Latest published version:<!---0.502246%--></dt><dd>
+                <a href="https://tamtamresearch.github.io/a-standard-repo/latest/">https://tamtamresearch.github.io/a-standard-repo/latest/<!---0.502246%--></a><!---0.502246%-->
+              </dd><!---0.502246%-->
+        <dt>Latest editor's draft:<!---0.502246%--></dt><dd><a href="https://github.com/tamtamresearch/a-standard-repo">https://github.com/tamtamresearch/a-standard-repo<!---0.502246%--></a></dd><!---0.502246%-->
+        <dt>History:<!---0.502246%--></dt><!---0.502246%--><dd>
+                    <a href="https://github.com/tamtamresearch/a-standard-repo/commits/main">Commit history<!---0.502246%--></a>
+                  </dd><!---0.502246%--><!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+        <dt>Editor:<!---0.502246%--></dt><dd class="editor p-author h-card vcard">
+    <a class="ed_mailto u-email email p-name" href="mailto:[email protected]">Example Editor<!---0.502246%--></a> (<a class="p-org org h-org" href="https://example.org">Example Organization<!---0.502246%--></a><!---0.502246%-->)<!---0.502246%-->
+  </dd><!---0.502246%--><!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+        <dt>Feedback:<!---0.502246%--></dt><dd>
+        <a href="https://github.com/tamtamresearch/a-standard-repo/">GitHub tamtamresearch/a-standard-repo<!---0.502246%--></a>
+        (<a href="https://github.com/tamtamresearch/a-standard-repo/pulls/">pull requests</a>,
+        <a href="https://github.com/tamtamresearch/a-standard-repo/issues/new/choose">new issue</a>,
+        <a href="https://github.com/tamtamresearch/a-standard-repo/issues/">open issues</a>)
+      </dd><!---0.502246%--><!---0.502246%-->
+        <!---0.502246%-->
+        <!---0.502246%-->
+      </dl>
+    </details>
+    <!---0.502246%-->
+    <!---0.502246%-->
+    <p class="copyright">
+      Copyright ©
+      <!---0.502246%-->2026<!---0.502246%-->
+      the document editors/authors.
+      Text is available under the
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International Public License<!---0.502246%--></a>; additional terms may apply.<!---0.502246%-->
+    </p><!---0.502246%-->
+    <hr title="Separator for header">
+  </div><!-- Abstract (required) -->
+<section id="abstract" class="introductory"><!--OddPage--><h2>Abstract<!---0.502246%--></h2>
+    <p>
+        This specification defines an example standard for demonstrating
+        versioned documentation management using ReSpec and GitHub Pages.
+        It provides a proof of concept for maintaining multiple versions
+        of standards documentation in a clean, automated way.
+    </p>
+    <p>
+        This is a fictional standard created to demonstrate repository
+        organization patterns for standards documentation.
+    </p>
+</section>
+
+<!-- Status of This Document (required) -->
+<section id="sotd" class="introductory"><!--OddPage--><h2>Status of This Document<!---0.502246%--></h2><!---0.502246%--><p>
+      This document is a draft of a potential specification. It has no official
+      standing of any kind and does not represent the support or consensus of
+      any standards organization.
+    </p>
+    <p>
+        This is a <strong>proof of concept</strong> specification. It demonstrates
+        how to manage versioned standards documentation using modern tooling.
+    </p>
+    <p>
+        This document is not affiliated with any standards body and serves
+        purely as a technical demonstration.
+    </p>
+    <p>
+        Comments and feedback are welcome via 
+        <a href="https://github.com/tamtamresearch/a-standard-repo/issues">GitHub Issues</a>.
+    </p>
+<!---0.502246%--><!---0.502246%--><!---0.502246%--><!---0.502246%--></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents<!---0.502246%--></h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract<!---0.502246%--></a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document<!---0.502246%--></a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1.<!---0.502246%--> </bdi>Introduction</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">2.<!---0.502246%--> </bdi>Conformance<!---0.502246%--></a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">3.<!---0.502246%--> </bdi>Terminology</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#architecture"><bdi class="secno">4.<!---0.502246%--> </bdi>Repository Architecture</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#build-process"><bdi class="secno">5.<!---0.502246%--> </bdi>Build Process</a><!---0.502246%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#build-the-specification"><bdi class="secno">5.1<!---0.502246%--> </bdi>Build the specification</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#output-build-index-html"><bdi class="secno">5.2<!---0.502246%--> </bdi>Output: build/index.html</a><!---0.502246%--></li></ol></li><li class="tocline"><a class="tocxref" href="#deployment"><bdi class="secno">6.<!---0.502246%--> </bdi>Deployment Process</a><!---0.502246%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#tag-a-version"><bdi class="secno">6.1<!---0.502246%--> </bdi>Tag a version</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#push-the-tag"><bdi class="secno">6.2<!---0.502246%--> </bdi>Push the tag</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#github-actions-handles-the-rest-automatically"><bdi class="secno">6.3<!---0.502246%--> </bdi>GitHub Actions handles the rest automatically!</a><!---0.502246%--></li></ol></li><li class="tocline"><a class="tocxref" href="#versioning"><bdi class="secno">7.<!---0.502246%--> </bdi>Versioning Strategy</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">8.<!---0.502246%--> </bdi>Examples</a><!---0.502246%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#version-specific-urls"><bdi class="secno">8.1<!---0.502246%--> </bdi>Version-specific URLs</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#latest-version"><bdi class="secno">8.2<!---0.502246%--> </bdi>Latest version</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#version-selector"><bdi class="secno">8.3<!---0.502246%--> </bdi>Version selector</a><!---0.502246%--></li></ol></li><li class="tocline"><a class="tocxref" href="#benefits"><bdi class="secno">9.<!---0.502246%--> </bdi>Benefits of This Approach</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">10.<!---0.502246%--> </bdi>References</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">A.<!---0.502246%--> </bdi>Acknowledgements</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#implementation-notes"><bdi class="secno">B.<!---0.502246%--> </bdi>Implementation Notes</a><!---0.502246%--></li><li class="tocline"><a class="tocxref" href="#changelog"><bdi class="secno">C.<!---0.502246%--> </bdi>Change Log</a><!---0.502246%--></li></ol></nav>
+
+<!-- Introduction -->
+<section id="introduction"><!--OddPage--><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1.<!---0.502246%--> </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs javascript">&lt;p&gt;
+    <span class="hljs-title class_">Standards</span> documentation needs to evolve over time. <span class="hljs-title class_">As</span> standards mature,
+    <span class="hljs-keyword">new</span> versions are published <span class="hljs-keyword">with</span> improvements, clarifications, and <span class="hljs-keyword">new</span> features.
+    <span class="hljs-title class_">However</span>, older versions must remain accessible <span class="hljs-keyword">for</span> users who cannot immediately
+    upgrade.
+&lt;/p&gt;
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    This specification demonstrates a clean approach to managing multiple versions
+    of standards documentation:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Source files separated from build artifacts<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Automated deployment via GitHub Actions<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Multiple versions accessible simultaneously<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Framework-agnostic repository pattern<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"motivation"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Motivation<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        Many standards projects struggle with version management:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Large repositories full of build artifacts<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Manual deployment steps prone to errors<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Unclear which files are source vs. generated<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Difficulty accessing older versions<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        This proof of concept addresses these challenges with a clean,
+        automated approach.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"scope"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Scope<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        This specification covers:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Repository organization patterns<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Build automation using ReSpec<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Version deployment strategies<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>GitHub Pages integration<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        This specification does <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>not<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> cover:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Specific domain vocabularies<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Complex RDF modeling<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Internationalization<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Production deployment at scale<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"audience"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Intended Audience<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        This document is intended for:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Standards editors and maintainers<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Technical documentation teams<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Open source project maintainers<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Anyone managing versioned technical documentation<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+</code></pre>
+</section>
+
+<!-- Conformance (auto-generated by ReSpec) -->
+<section id="conformance"><!--OddPage--><div class="header-wrapper"><h2 id="x2-conformance"><bdi class="secno">2.<!---0.502246%--> </bdi>Conformance<!---0.502246%--></h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 2."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.<!---0.502246%--></p><!---0.502246%-->
+
+
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-comment">&lt;!-- Boilerplate will be inserted here --&gt;</span>
+</code></pre>
+</section>
+
+<!-- Terminology -->
+<section id="terminology"><!--OddPage--><div class="header-wrapper"><h2 id="x3-terminology"><bdi class="secno">3.<!---0.502246%--> </bdi>Terminology</h2><a class="self-link" href="#terminology" aria-label="Permalink for Section 3."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    The following terms are used throughout this specification:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span> <span class="hljs-attr">data-lt</span>=<span class="hljs-string">"source file|source files"</span>&gt;</span>Source File<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+        A human-authored file that serves as input to the build process.
+        Source files are maintained in the repository's main branch.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span> <span class="hljs-attr">data-lt</span>=<span class="hljs-string">"build artifact|build artifacts"</span>&gt;</span>Build Artifact<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+        A generated file produced by the build process. Build artifacts
+        are deployed to the gh-pages branch but never committed to the
+        main branch.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span>&gt;</span>Version<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+        A specific release of the standard, identified by a semantic
+        version number (e.g., 1.0.0, 1.1.0, 2.0.0).
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span>&gt;</span>Latest<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+        An alias that always points to the most recent published version
+        of the standard.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span> <span class="hljs-attr">data-lt</span>=<span class="hljs-string">"gh-pages"</span>&gt;</span>GitHub Pages Branch<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+        A special Git branch used for hosting static websites via GitHub Pages.
+        In this system, it contains only build artifacts.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+</code></pre>
+</section>
+
+<!-- Repository Architecture -->
+<section id="architecture"><!--OddPage--><div class="header-wrapper"><h2 id="x4-repository-architecture"><bdi class="secno">4.<!---0.502246%--> </bdi>Repository Architecture</h2><a class="self-link" href="#architecture" aria-label="Permalink for Section 4."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    The repository follows a <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>source-build separation<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> pattern
+    with automated deployment.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"branch-structure"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Branch Structure<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        The repository uses two branches:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>main<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> branch (default)<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+            Contains source files, build scripts, and configuration.
+            This is where development happens.
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>gh-pages<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> branch<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+            Contains only generated HTML files organized by version.
+            This branch is managed exclusively by GitHub Actions.
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"directory-structure"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Directory Structure<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Main Branch Structure"</span>&gt;</span>
+</code></pre>
+<p>standard-repo/
+├── source/              # ReSpec source files
+│   ├── index.html
+│   └── config.js
+├── scripts/
+│   ├── build-spec.js    # Build automation
+│   └── deploy-version.py # Deployment script
+├── .github/workflows/
+│   └── deploy.yml       # CI/CD automation
+├── .mise.toml           # Tool versions
+└── package.json         # Dependencies
+        </p>
+<pre><code aria-busy="false" class="hljs abnf">    &lt;pre class<span class="hljs-operator">=</span><span class="hljs-string">"example"</span> title<span class="hljs-operator">=</span><span class="hljs-string">"gh-pages Branch Structure"</span>&gt;
+</code></pre>
+<p>gh-pages/
+├── index.html           # Version selector
+├── v1.0/
+│   └── index.html
+├── v2.0/
+│   └── index.html
+└── latest/
+└── index.html
+        
+    </p></section><p></p>
+
+
+<!-- Build Process -->
+<section id="build-process"><!--OddPage--><div class="header-wrapper"><h2 id="x5-build-process"><bdi class="secno">5.<!---0.502246%--> </bdi>Build Process</h2><a class="self-link" href="#build-process" aria-label="Permalink for Section 5."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    The build process converts ReSpec source files into static HTML:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>ReSpec source is loaded in a headless browser (Puppeteer)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>ReSpec JavaScript processes the document<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Processed HTML is extracted<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Static HTML is written to <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>build/index.html<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Building Locally"</span>&gt;</span>
+</code></pre>
+<section id="build-the-specification"><div class="header-wrapper"><h3 id="x5-1-build-the-specification"><bdi class="secno">5.1<!---0.502246%--> </bdi>Build the specification</h3><a class="self-link" href="#build-the-specification" aria-label="Permalink for Section 5.1"></a></div>
+<p>npm run build</p>
+</section><section id="output-build-index-html"><div class="header-wrapper"><h3 id="x5-2-output-build-index-html"><bdi class="secno">5.2<!---0.502246%--> </bdi>Output: build/index.html</h3><a class="self-link" href="#output-build-index-html" aria-label="Permalink for Section 5.2"></a></div>
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+</code></pre>
+</section></section>
+
+<!-- Deployment -->
+<section id="deployment"><!--OddPage--><div class="header-wrapper"><h2 id="x6-deployment-process"><bdi class="secno">6.<!---0.502246%--> </bdi>Deployment Process</h2><a class="self-link" href="#deployment" aria-label="Permalink for Section 6."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    Deployment is triggered by Git tags and fully automated:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Developer creates a Git tag (e.g., <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>v1.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>GitHub Actions detects the tag<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Build script generates static HTML<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Deployment script copies to gh-pages branch<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Version selector is updated<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Changes are pushed to gh-pages<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>GitHub Pages publishes the update<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Deploying a Version"</span>&gt;</span>
+</code></pre>
+<section id="tag-a-version"><div class="header-wrapper"><h3 id="x6-1-tag-a-version"><bdi class="secno">6.1<!---0.502246%--> </bdi>Tag a version</h3><a class="self-link" href="#tag-a-version" aria-label="Permalink for Section 6.1"></a></div>
+<p>git tag -a v1.0.0 -m "Release v1.0.0"</p>
+</section><section id="push-the-tag"><div class="header-wrapper"><h3 id="x6-2-push-the-tag"><bdi class="secno">6.2<!---0.502246%--> </bdi>Push the tag</h3><a class="self-link" href="#push-the-tag" aria-label="Permalink for Section 6.2"></a></div>
+<p>git push origin --tags</p>
+</section><section id="github-actions-handles-the-rest-automatically"><div class="header-wrapper"><h3 id="x6-3-github-actions-handles-the-rest-automatically"><bdi class="secno">6.3<!---0.502246%--> </bdi>GitHub Actions handles the rest automatically!</h3><a class="self-link" href="#github-actions-handles-the-rest-automatically" aria-label="Permalink for Section 6.3"></a></div>
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+</code></pre>
+</section></section>
+
+<!-- Versioning Strategy -->
+<section id="versioning"><!--OddPage--><div class="header-wrapper"><h2 id="x7-versioning-strategy"><bdi class="secno">7.<!---0.502246%--> </bdi>Versioning Strategy</h2><a class="self-link" href="#versioning" aria-label="Permalink for Section 7."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    This specification uses <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://semver.org/"</span>&gt;</span>Semantic Versioning<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>MAJOR<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Breaking changes<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>MINOR<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: New features (backwards compatible)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>PATCH<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Bug fixes<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    Examples: <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>1.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>, <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>1.1.0<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>, <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>2.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"version-immutability"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Version Immutability<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"note"</span>&gt;</span>
+        Once published, a version <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>MUST NOT<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> be modified.
+        Corrections must be published as a new version.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        This ensures persistent URIs remain stable and citations remain valid.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+</code></pre>
+</section>
+
+<!-- Examples -->
+<section id="examples"><!--OddPage--><div class="header-wrapper"><h2 id="x8-examples"><bdi class="secno">8.<!---0.502246%--> </bdi>Examples</h2><a class="self-link" href="#examples" aria-label="Permalink for Section 8."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example-urls"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>URL Structure<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        Published versions are accessible at predictable URLs:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Version URLs"</span>&gt;</span>
+</code></pre>
+<section id="version-specific-urls"><div class="header-wrapper"><h3 id="x8-1-version-specific-urls"><bdi class="secno">8.1<!---0.502246%--> </bdi>Version-specific URLs</h3><a class="self-link" href="#version-specific-urls" aria-label="Permalink for Section 8.1"></a></div>
+<p><a href="https://tamtamresearch.github.io/a-standard-repo/v1.0/">https://tamtamresearch.github.io/a-standard-repo/v1.0/</a>
+<a href="https://tamtamresearch.github.io/a-standard-repo/v2.0/">https://tamtamresearch.github.io/a-standard-repo/v2.0/</a>
+<a href="https://tamtamresearch.github.io/a-standard-repo/v3.0/">https://tamtamresearch.github.io/a-standard-repo/v3.0/</a></p>
+</section><section id="latest-version"><div class="header-wrapper"><h3 id="x8-2-latest-version"><bdi class="secno">8.2<!---0.502246%--> </bdi>Latest version</h3><a class="self-link" href="#latest-version" aria-label="Permalink for Section 8.2"></a></div>
+<p><a href="https://tamtamresearch.github.io/a-standard-repo/latest/">https://tamtamresearch.github.io/a-standard-repo/latest/</a></p>
+</section><section id="version-selector"><div class="header-wrapper"><h3 id="x8-3-version-selector"><bdi class="secno">8.3<!---0.502246%--> </bdi>Version selector</h3><a class="self-link" href="#version-selector" aria-label="Permalink for Section 8.3"></a></div>
+<p><a href="https://tamtamresearch.github.io/a-standard-repo/">https://tamtamresearch.github.io/a-standard-repo/</a>
+        
+    </p></section></section><p></p>
+
+
+<!-- Benefits -->
+<section id="benefits"><!--OddPage--><div class="header-wrapper"><h2 id="x9-benefits-of-this-approach"><bdi class="secno">9.<!---0.502246%--> </bdi>Benefits of This Approach</h2><a class="self-link" href="#benefits" aria-label="Permalink for Section 9."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Clean Repository<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Only source files in main branch (~5MB vs 500MB+)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Zero Manual Steps<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Tag and push, automation handles the rest<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Multiple Versions<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: All versions accessible simultaneously<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Framework Agnostic<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Easy to swap ReSpec for other tools<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>PR Friendly<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Diffs show only source changes<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Reliable<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Automated = consistent, error-free deployments<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Fast Clones<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Small repository size means quick setup<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Clear History<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Git log shows only meaningful changes<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"framework-flexibility"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Framework Flexibility<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        The repository pattern supports multiple documentation frameworks:
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>ReSpec<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: W3C-style specifications (current)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>mdBook<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Rust-based simplicity<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>MkDocs<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Python documentation<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Custom PHP<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: Domain-specific generation<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        Swapping frameworks requires only updating the build script.
+        The deployment automation remains unchanged.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+</code></pre>
+</section>
+
+<!-- References -->
+<section id="references"><!--OddPage--><div class="header-wrapper"><h2 id="x10-references"><bdi class="secno">10.<!---0.502246%--> </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Section 10."></a></div>
+    
+    <!-- Auto-generated by ReSpec from localBiblio and citations -->
+</section>
+
+<!-- Acknowledgements -->
+<section class="appendix" id="acknowledgements"><!--OddPage--><div class="header-wrapper"><h2 id="a-acknowledgements"><bdi class="secno">A.<!---0.502246%--> </bdi>Acknowledgements</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix A."></a></div>
+    
+    <p>
+        This proof of concept was inspired by the need for better standards
+        documentation management in the Linked Data community.
+    </p>
+    <p>
+        Special thanks to the ReSpec project for providing excellent tools
+        for standards authoring.
+    </p>
+</section>
+
+<!-- Implementation Notes -->
+<section id="implementation-notes"><!--OddPage--><div class="header-wrapper"><h2 id="b-implementation-notes"><bdi class="secno">B.<!---0.502246%--> </bdi>Implementation Notes</h2><a class="self-link" href="#implementation-notes" aria-label="Permalink for Section B."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    This section provides guidance for implementers adopting this pattern.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"getting-started"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Getting Started<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Clone the repository template<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Install tools with <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>mise install<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Install dependencies with <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>npm install<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Edit source files in <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>source/<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Test with <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>npm run build<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Deploy with Git tags<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"best-practices"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Best Practices<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Always test builds locally before tagging<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Use semantic versioning for clear version history<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Document changes in each version's changelog<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Keep source files clean and well-organized<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Let automation handle deployment (no manual steps)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+</code></pre>
+</section>
+
+<!-- Change Log -->
+<section class="appendix" id="changelog"><!--OddPage--><div class="header-wrapper"><h2 id="c-change-log"><bdi class="secno">C.<!---0.502246%--> </bdi>Change Log</h2><a class="self-link" href="#changelog" aria-label="Permalink for Appendix C."></a></div>
+    
+    
+<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"changes-v3-0"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Changes in Version 3.0<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Added implementation notes section<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Included best practices guidance<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Enhanced getting started instructions<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Production-ready documentation<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"changes-v2-0"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Changes in Version 2.0<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Added extended benefits section<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Enhanced examples with more use cases<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Improved terminology definitions<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Added framework flexibility guidance<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"changes-v1-0"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Changes in Version 1.0<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Initial proof of concept release<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Repository architecture defined<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Build and deployment automation implemented<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>ReSpec integration completed<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+</code></pre>
+</section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
+// @ts-check
+
+if (document.respec) {
+  document.respec.ready.then(setupVarHighlighter);
+} else {
+  setupVarHighlighter();
+}
+
+function setupVarHighlighter() {
+  document
+    .querySelectorAll("var")
+    .forEach(varElem => varElem.addEventListener("click", highlightListener));
+}
+
+function highlightListener(ev) {
+  ev.stopPropagation();
+  const { target: varElem } = ev;
+  const hightligtedElems = highlightVars(varElem);
+  const resetListener = () => {
+    const hlColor = getHighlightColor(varElem);
+    hightligtedElems.forEach(el => removeHighlight(el, hlColor));
+    [...HL_COLORS.keys()].forEach(key => HL_COLORS.set(key, true));
+  };
+  if (hightligtedElems.length) {
+    document.body.addEventListener("click", resetListener, { once: true });
+  }
+}
+
+// availability of highlight colors. colors from var.css
+const HL_COLORS = new Map([
+  ["respec-hl-c1", true],
+  ["respec-hl-c2", true],
+  ["respec-hl-c3", true],
+  ["respec-hl-c4", true],
+  ["respec-hl-c5", true],
+  ["respec-hl-c6", true],
+  ["respec-hl-c7", true],
+]);
+
+function getHighlightColor(target) {
+  // return current colors if applicable
+  const { value } = target.classList;
+  const re = /respec-hl-\w+/;
+  const activeClass = re.test(value) && value.match(re);
+  if (activeClass) return activeClass[0];
+
+  // first color preference
+  if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
+
+  // otherwise get some other available color
+  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+}
+
+function highlightVars(varElem) {
+  const textContent = norm(varElem.textContent);
+  const parent = varElem.closest(".algorithm, section");
+  const highlightColor = getHighlightColor(varElem);
+
+  const varsToHighlight = [...parent.querySelectorAll("var")].filter(
+    el =>
+      norm(el.textContent) === textContent &&
+      el.closest(".algorithm, section") === parent
+  );
+
+  // update availability of highlight color
+  const colorStatus = varsToHighlight[0].classList.contains("respec-hl");
+  HL_COLORS.set(highlightColor, colorStatus);
+
+  // highlight vars
+  if (colorStatus) {
+    varsToHighlight.forEach(el => removeHighlight(el, highlightColor));
+    return [];
+  } else {
+    varsToHighlight.forEach(el => addHighlight(el, highlightColor));
+  }
+  return varsToHighlight;
+}
+
+function removeHighlight(el, highlightColor) {
+  el.classList.remove("respec-hl", highlightColor);
+  // clean up empty class attributes so they don't come in export
+  if (!el.classList.length) el.removeAttribute("class");
+}
+
+function addHighlight(elem, highlightColor) {
+  elem.classList.add("respec-hl", highlightColor);
+}
+
+/**
+ * Same as `norm` from src/core/utils, but our build process doesn't allow
+ * imports in runtime scripts, so duplicated here.
+ * @param {string} str
+ */
+function norm(str) {
+  return str.trim().replace(/\s+/g, " ");
+}
+})()</script><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
