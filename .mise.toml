@@ -7,6 +7,5 @@ node = "22"
 # Python for deployment scripts
 python = "3.12"
 
-[env]
-# Add node_modules/.bin to PATH for easy access to npm binaries
-PATH = ["./node_modules/.bin", "$PATH"]
+# Note: PATH modification moved to shell activation instead of .mise.toml
+# mise doesn't support PATH arrays - use shell rc files if needed

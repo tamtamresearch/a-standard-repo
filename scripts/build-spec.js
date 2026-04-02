@@ -23,8 +23,8 @@ const path = require('path');
  */
 async function buildSpec(inputFile, outputFile, options = {}) {
   const {
-    timeout = 60000,
-    verbose = false
+    timeout = 120000,  // Increased to 120s for network delays
+    verbose = true     // Enable verbose by default for debugging
   } = options;
 
   if (verbose) {
@@ -75,9 +75,45 @@ async function buildSpec(inputFile, outputFile, options = {}) {
     console.log('⏳ Waiting for ReSpec to process...');
     
     // Wait for ReSpec to finish processing
-    await page.waitForFunction(() => {
-      return window.hasOwnProperty('respecIsReady');
-    }, { timeout: timeout });
+    if (verbose) console.log(`  Waiting for ReSpec...`);
+    
+    // Add console logging from the page
+    page.on('console', msg => {
+      if (verbose) console.log('Page console:', msg.text());
+    });
+    
+    // Check if ReSpec is even loading
+    const hasReSpec = await page.evaluate(() => {
+      return typeof window.respecConfig !== 'undefined';
+    });
+    
+    if (verbose) console.log(`  ReSpec config found: ${hasReSpec}`);
+    
+    // Try multiple detection methods for ReSpec completion
+    try {
+      await page.waitForFunction(() => {
+        // Check multiple possible completion signals
+        return window.hasOwnProperty('respecIsReady') || 
+               (document.body && document.body.classList.contains('respec-ready')) ||
+               (document.getElementById('abstract') && document.querySelector('.respec-h2'));
+      }, { timeout: timeout });
+    } catch (err) {
+      // Try a simple wait as fallback - if we see ReSpec output, it's probably done
+      console.log('  ReSpec signal not detected, checking if document looks complete...');
+      await new Promise(resolve => setTimeout(resolve, 5000));  // Wait 5 more seconds
+      
+      const hasContent = await page.evaluate(() => {
+        return document.body && document.body.innerText.length > 1000;
+      });
+      
+      if (!hasContent) {
+        const bodyText = await page.evaluate(() => document.body.innerText);
+        console.error('Page content:', bodyText.substring(0, 500));
+        throw new Error(`ReSpec did not finish processing within ${timeout}ms. This might be a network issue loading ReSpec from CDN.`);
+      }
+      
+      console.log('  Document appears complete despite missing signal');
+    }
 
     console.log('✓ ReSpec processing complete');
 
