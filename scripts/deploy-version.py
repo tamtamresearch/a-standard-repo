@@ -196,6 +196,16 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
 
         run_cmd(["git", "add", "."], cwd=gh_pages_dir, capture=not verbose)
 
+        # Debug: check what files changed
+        if verbose:
+            status_output = run_cmd(
+                ["git", "status", "--short"], cwd=gh_pages_dir, capture=True
+            )
+            if status_output:
+                print(f"   Git status:\n{status_output}")
+            else:
+                print(f"   Git status: No changes")
+
         # Try to commit
         try:
             commit_msg = f"Deploy v{version}"
@@ -210,9 +220,20 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
             print(f"✓ Committed: {commit_msg}")
             has_changes = True
 
-        except subprocess.CalledProcessError:
-            print("ℹ️  No changes to commit (version already exists)")
-            has_changes = False
+        except subprocess.CalledProcessError as e:
+            # Check if it's "nothing to commit" or a real error
+            if "nothing to commit" in str(e.stderr) or "nothing to commit" in str(
+                e.stdout
+            ):
+                print("ℹ️  No changes to commit (version already exists)")
+                has_changes = False
+            else:
+                # Real error - show it and re-raise
+                print(f"❌ Commit failed: {e}")
+                if verbose:
+                    print(f"   stderr: {e.stderr}")
+                    print(f"   stdout: {e.stdout}")
+                raise
 
         # Step 7: Push to remote (even if no new commits, ensures branch exists)
         if push and has_changes:
