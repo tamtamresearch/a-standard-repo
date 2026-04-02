@@ -1,0 +1,56 @@
+name: Deploy Specification
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed for gh-pages
+      
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
+      
+      - name: Install Node.js dependencies
+        run: npm ci
+      
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Deploying version: $VERSION"
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Build and deploy
+        run: |
+          python scripts/deploy-version.py ${{ steps.version.outputs.version }} --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Deployment summary
+        run: |
+          echo "### ✅ Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**View at:**" >> $GITHUB_STEP_SUMMARY
+          echo "- https://tamtamresearch.github.io/a-standard-repo/v${{ steps.version.outputs.version }}/" >> $GITHUB_STEP_SUMMARY
+          echo "- https://tamtamresearch.github.io/a-standard-repo/latest/" >> $GITHUB_STEP_SUMMARY
+          echo "- https://tamtamresearch.github.io/a-standard-repo/ (version selector)" >> $GITHUB_STEP_SUMMARY

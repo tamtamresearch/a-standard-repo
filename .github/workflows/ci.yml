@@ -1,0 +1,56 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
+      
+      - name: Install Node.js dependencies
+        run: npm ci
+      
+      - name: Build specification
+        run: npm run build
+      
+      - name: Validate output
+        run: |
+          if [ ! -f build/index.html ]; then
+            echo "❌ Build failed: no output file"
+            exit 1
+          fi
+          
+          # Check file size (should be > 10KB)
+          SIZE=$(stat -c%s build/index.html 2>/dev/null || stat -f%z build/index.html)
+          if [ "$SIZE" -lt 10240 ]; then
+            echo "❌ Output file too small: ${SIZE} bytes"
+            exit 1
+          fi
+          
+          # Check for ReSpec errors
+          if grep -q "respec-error" build/index.html; then
+            echo "❌ ReSpec errors found in output"
+            grep "respec-error" build/index.html || true
+            exit 1
+          fi
+          
+          echo "✅ Build validation passed"
+          echo "   Output size: ${SIZE} bytes"
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build/
+          retention-days: 7

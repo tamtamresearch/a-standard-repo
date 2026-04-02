@@ -1,0 +1,30 @@
+{
+  "name": "a-standard-repo",
+  "version": "1.0.0",
+  "description": "Proof of Concept: Versioned Standards Documentation",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-spec.js",
+    "serve": "http-server source -p 8000 -o",
+    "deploy": "python scripts/deploy-version.py",
+    "test": "node scripts/validate-spec.js",
+    "clean": "rm -rf build/"
+  },
+  "devDependencies": {
+    "respec": "^35.9.0",
+    "puppeteer": "^23.0.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "standards",
+    "specifications",
+    "respec",
+    "documentation",
+    "versioning"
+  ],
+  "author": "tamtamresearch",
+  "license": "MIT"
+}

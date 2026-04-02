@@ -1,0 +1,12 @@
+# Tool version management for standard-repo POC
+
+[tools]
+# Node.js for ReSpec and build scripts
+node = "22"
+
+# Python for deployment scripts
+python = "3.12"
+
+[env]
+# Add node_modules/.bin to PATH for easy access to npm binaries
+PATH = ["./node_modules/.bin", "$PATH"]
