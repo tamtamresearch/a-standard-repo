@@ -64,16 +64,26 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
     # Step 2: Setup gh-pages branch
     print("\n📥 Step 2: Setting up gh-pages branch...")
 
+    # Get the actual GitHub remote URL
+    remote_url = run_cmd(
+        ["git", "config", "--get", "remote.origin.url"], check=True, capture=True
+    )
+    print(f"   Remote: {remote_url}")
+
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)
         gh_pages_dir = tmpdir / "gh-pages"
 
-        # Check if gh-pages branch exists
-        result = run_cmd("git branch -r", check=True, capture=True)
-        gh_pages_exists = "origin/gh-pages" in result
+        # Check if gh-pages branch exists on remote
+        result = run_cmd(
+            ["git", "ls-remote", "--heads", remote_url, "gh-pages"],
+            check=True,
+            capture=True,
+        )
+        gh_pages_exists = len(result.strip()) > 0
 
         if gh_pages_exists:
-            # Clone existing gh-pages
+            # Clone existing gh-pages from GitHub
             run_cmd(
                 [
                     "git",
@@ -82,7 +92,7 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
                     "gh-pages",
                     "--depth",
                     "1",
-                    ".",
+                    remote_url,
                     str(gh_pages_dir),
                 ],
                 capture=not verbose,
@@ -91,7 +101,9 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
         else:
             # gh-pages doesn't exist, create it
             print("📝 Creating new gh-pages branch (first deploy)")
-            run_cmd(["git", "clone", ".", str(gh_pages_dir)], capture=not verbose)
+            run_cmd(
+                ["git", "clone", remote_url, str(gh_pages_dir)], capture=not verbose
+            )
             run_cmd(
                 ["git", "checkout", "--orphan", "gh-pages"],
                 cwd=gh_pages_dir,
