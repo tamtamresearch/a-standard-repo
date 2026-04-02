@@ -26,6 +26,9 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
       
+      - name: Install Python dependencies
+        run: pip install ghp-import
+      
       - name: Extract version from tag
         id: version
         run: |
