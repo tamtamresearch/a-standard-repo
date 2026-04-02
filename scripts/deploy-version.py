@@ -182,6 +182,7 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
 
         run_cmd(["git", "add", "."], cwd=gh_pages_dir, capture=not verbose)
 
+        # Try to commit
         try:
             commit_msg = f"Deploy v{version}"
             if make_latest:
@@ -193,22 +194,38 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
                 capture=not verbose,
             )
             print(f"✓ Committed: {commit_msg}")
-
-            # Step 7: Push to remote
-            if push:
-                print(f"\n📤 Step 7: Pushing to gh-pages...")
-                run_cmd(
-                    ["git", "push", "origin", "gh-pages"],
-                    cwd=gh_pages_dir,
-                    capture=not verbose,
-                )
-                print(f"✓ Pushed to gh-pages")
-            else:
-                print(f"\n⏭️  Step 7: Skipping push (--no-push)")
+            has_changes = True
 
         except subprocess.CalledProcessError:
             print("ℹ️  No changes to commit (version already exists)")
-            return True
+            has_changes = False
+
+        # Step 7: Push to remote (even if no new commits, ensures branch exists)
+        if push and has_changes:
+            print(f"\n📤 Step 7: Pushing to gh-pages...")
+            if verbose:
+                print(f"   Running: git push origin gh-pages")
+                print(f"   Working dir: {gh_pages_dir}")
+
+            try:
+                output = run_cmd(
+                    ["git", "push", "origin", "gh-pages"],
+                    cwd=gh_pages_dir,
+                    capture=True,
+                )
+                if output and verbose:
+                    print(f"   Push output: {output}")
+                print(f"✓ Pushed to gh-pages")
+            except subprocess.CalledProcessError as e:
+                print(f"❌ Push failed: {e}")
+                if verbose:
+                    print(f"   stdout: {e.stdout}")
+                    print(f"   stderr: {e.stderr}")
+                raise
+        elif push and not has_changes:
+            print(f"\n⏭️  Step 7: Skipping push (no changes)")
+        else:
+            print(f"\n⏭️  Step 7: Skipping push (--no-push)")
 
     # Success!
     print(f"\n{'=' * 60}")
