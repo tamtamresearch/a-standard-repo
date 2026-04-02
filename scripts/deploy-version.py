@@ -230,7 +230,17 @@ def generate_index(gh_pages_dir):
             versions.append({"num": version_num, "dir": item.name, "date": date_str})
 
     # Sort by version number (newest first)
-    versions.sort(key=lambda v: [int(x) for x in v["num"].split(".")], reverse=True)
+    # Handle versions with suffixes like "1.0.0-draft" or "0.0.1-test"
+    def version_sort_key(v):
+        # Split on dash to separate version from suffix
+        parts = v["num"].split("-")[0].split(".")
+        try:
+            return [int(x) for x in parts]
+        except ValueError:
+            # If parsing fails, return a very low value
+            return [0]
+
+    versions.sort(key=version_sort_key, reverse=True)
 
     # Generate HTML
     html = """<!DOCTYPE html>
