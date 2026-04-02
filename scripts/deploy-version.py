@@ -4,11 +4,9 @@ Deploy a version of the specification to gh-pages branch.
 
 This script:
 1. Builds the specification using npm run build
-2. Clones/creates gh-pages branch
-3. Copies built files to version directory (vX.Y.Z)
-4. Updates 'latest' to point to this version (optional)
-5. Generates version selector index.html
-6. Commits and pushes to gh-pages
+2. Creates a temporary directory with version structure (vX.Y.Z, latest, index.html)
+3. Uses ghp-import to deploy to gh-pages branch
+4. Optionally pushes to remote
 
 Usage:
     python scripts/deploy-version.py 1.0.0
@@ -38,20 +36,50 @@ def run_cmd(cmd, cwd=None, check=True, capture=True):
     return result.stdout.strip() if capture else None
 
 
-def deploy_version(version, make_latest=True, push=True, verbose=False):
-    """Deploy a version to gh-pages branch."""
+def get_existing_versions():
+    """Get list of existing versions from gh-pages branch."""
+    try:
+        # Check if gh-pages branch exists
+        result = run_cmd(["git", "rev-parse", "--verify", "gh-pages"], check=False)
+        if not result:
+            return []
+
+        # Get list of directories from gh-pages
+        result = run_cmd(
+            ["git", "ls-tree", "-d", "--name-only", "gh-pages"], check=False
+        )
+        if not result:
+            return []
+
+        versions = []
+        for line in result.split("\n"):
+            if line.startswith("v") and "." in line:
+                versions.append(line)
+        return versions
+    except Exception as e:
+        # If we can't get versions, return empty list (will be first deploy)
+        return []
+
+
+def deploy_version(
+    version, make_latest=True, push=True, verbose=False, skip_build=False
+):
+    """Deploy a version to gh-pages branch using ghp-import."""
 
     print(f"\n{'=' * 60}")
     print(f"📦 Deploying version {version}")
     print(f"{'=' * 60}\n")
 
     # Step 1: Build the specification
-    print("🔨 Step 1: Building specification...")
-    try:
-        run_cmd(["npm", "run", "build"], capture=False)
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Build failed: {e}")
-        return False
+    if skip_build:
+        print("🔨 Step 1: Skipping build (--skip-build)...")
+    else:
+        print("🔨 Step 1: Building specification...")
+        try:
+            run_cmd(["npm", "run", "build"], capture=False)
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Build failed: {e}")
+            return False
 
     built_file = Path("build/index.html")
     if not built_file.exists():
@@ -61,111 +89,28 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
     file_size_kb = built_file.stat().st_size // 1024
     print(f"✓ Built: {built_file} ({file_size_kb} KB)")
 
-    # Step 2: Setup gh-pages branch
-    print("\n📥 Step 2: Setting up gh-pages branch...")
-
-    # Get the actual GitHub remote URL
-    remote_url = run_cmd(
-        ["git", "config", "--get", "remote.origin.url"], check=True, capture=True
-    )
-
-    # If running in GitHub Actions, use token for authentication
-    github_token = os.environ.get("GITHUB_TOKEN")
-    if github_token and "https://github.com" in remote_url:
-        # Insert token into HTTPS URL: https://token@github.com/...
-        remote_url = remote_url.replace(
-            "https://github.com", f"https://x-access-token:{github_token}@github.com"
-        )
-        if verbose:
-            print(f"   Using GitHub token for authentication")
-
-    if verbose:
+    # Step 2: Get existing versions from gh-pages
+    print("\n📥 Step 2: Checking existing versions...")
+    existing_versions = get_existing_versions()
+    if existing_versions:
         print(
-            f"   Remote: {remote_url.replace(github_token, '***') if github_token else remote_url}"
+            f"✓ Found {len(existing_versions)} existing versions: {', '.join(existing_versions)}"
         )
+    else:
+        print("✓ No existing versions (first deploy)")
+
+    # Step 3: Create temporary directory with full site structure
+    print(f"\n📋 Step 3: Creating deployment structure...")
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        tmpdir = Path(tmpdir)
-        gh_pages_dir = tmpdir / "gh-pages"
+        deploy_dir = Path(tmpdir) / "deploy"
+        deploy_dir.mkdir()
 
-        # Check if gh-pages branch exists on remote
-        result = run_cmd(
-            ["git", "ls-remote", "--heads", remote_url, "gh-pages"],
-            check=True,
-            capture=True,
-        )
-        gh_pages_exists = len(result.strip()) > 0
-
-        if gh_pages_exists:
-            # Clone existing gh-pages from GitHub
-            run_cmd(
-                [
-                    "git",
-                    "clone",
-                    "-b",
-                    "gh-pages",
-                    "--depth",
-                    "1",
-                    remote_url,
-                    str(gh_pages_dir),
-                ],
-                capture=not verbose,
-            )
-            print("✓ Cloned existing gh-pages branch")
-        else:
-            # gh-pages doesn't exist, create it
-            print("📝 Creating new gh-pages branch (first deploy)")
-            run_cmd(
-                ["git", "clone", remote_url, str(gh_pages_dir)], capture=not verbose
-            )
-            run_cmd(
-                ["git", "checkout", "--orphan", "gh-pages"],
-                cwd=gh_pages_dir,
-                capture=not verbose,
-            )
-            run_cmd(
-                ["git", "rm", "-rf", "."],
-                cwd=gh_pages_dir,
-                check=False,
-                capture=not verbose,
-            )
-
-            # Configure git user for commits in temp directory
-            run_cmd(
-                ["git", "config", "user.name", "deploy-script"],
-                cwd=gh_pages_dir,
-                capture=not verbose,
-            )
-            run_cmd(
-                ["git", "config", "user.email", "deploy@local"],
-                cwd=gh_pages_dir,
-                capture=not verbose,
-            )
-
-            # Create initial README
-            readme = gh_pages_dir / "README.md"
-            readme.write_text(
-                "# Published Specifications\n\n"
-                "This branch contains auto-generated documentation.\n"
-                "Do not edit manually - all changes will be overwritten.\n\n"
-                "Generated by: scripts/deploy-version.py\n"
-            )
-            run_cmd(["git", "add", "README.md"], cwd=gh_pages_dir, capture=not verbose)
-            run_cmd(
-                ["git", "commit", "-m", "Initialize gh-pages"],
-                cwd=gh_pages_dir,
-                capture=not verbose,
-            )
-            print("✓ Created new gh-pages branch")
-
-        # Step 3: Copy build to version directory
-        print(f"\n📋 Step 3: Copying to v{version}/...")
-
-        version_dir = gh_pages_dir / f"v{version}"
-        version_dir.mkdir(parents=True, exist_ok=True)
-
+        # Copy new version
+        version_dir = deploy_dir / f"v{version}"
+        version_dir.mkdir(parents=True)
         shutil.copy(built_file, version_dir / "index.html")
-        print(f"✓ Copied to v{version}/index.html")
+        print(f"✓ Created v{version}/index.html")
 
         # Copy additional assets if they exist
         assets_dir = Path("build/assets")
@@ -173,14 +118,10 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
             shutil.copytree(assets_dir, version_dir / "assets", dirs_exist_ok=True)
             print(f"✓ Copied assets")
 
-        # Step 4: Update 'latest'
+        # Step 4: Update 'latest' symlink/copy
         if make_latest:
             print(f"\n🔗 Step 4: Updating 'latest' → v{version}...")
-            latest_dir = gh_pages_dir / "latest"
-
-            if latest_dir.exists():
-                shutil.rmtree(latest_dir)
-
+            latest_dir = deploy_dir / "latest"
             shutil.copytree(version_dir, latest_dir)
             print(f"✓ Updated latest → v{version}")
         else:
@@ -188,79 +129,62 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
 
         # Step 5: Generate version selector index
         print(f"\n📄 Step 5: Generating version selector...")
-        generate_index(gh_pages_dir)
-        print(f"✓ Generated index.html")
 
-        # Step 6: Commit changes
-        print(f"\n💾 Step 6: Committing changes...")
+        # For the index, we need to include the new version plus existing ones
+        all_versions = existing_versions + [f"v{version}"]
+        # Remove duplicates and sort
+        all_versions = sorted(list(set(all_versions)), reverse=True)
 
-        run_cmd(["git", "add", "."], cwd=gh_pages_dir, capture=not verbose)
+        generate_index(deploy_dir, all_versions)
+        print(f"✓ Generated index.html with {len(all_versions)} versions")
 
-        # Debug: check what files changed
+        # Step 6: Create README
+        readme = deploy_dir / "README.md"
+        readme.write_text(
+            "# Published Specifications\n\n"
+            "This branch contains auto-generated documentation.\n"
+            "Do not edit manually - all changes will be overwritten.\n\n"
+            "Generated by: scripts/deploy-version.py\n"
+        )
+        print(f"✓ Created README.md")
+
+        # Step 7: Deploy using ghp-import
+        print(f"\n📤 Step 6: Deploying with ghp-import...")
+
+        commit_msg = f"Deploy v{version}"
+        if make_latest:
+            commit_msg += " (latest)"
+
+        ghp_import_cmd = [
+            "ghp-import",
+            "-n",  # Include .nojekyll file
+            "-m",
+            commit_msg,  # Commit message
+            "-b",
+            "gh-pages",  # Target branch
+        ]
+
+        if push:
+            ghp_import_cmd.append("-p")  # Push to remote
+
         if verbose:
-            status_output = run_cmd(
-                ["git", "status", "--short"], cwd=gh_pages_dir, capture=True
-            )
-            if status_output:
-                print(f"   Git status:\n{status_output}")
-            else:
-                print(f"   Git status: No changes")
+            ghp_import_cmd.append("-f")  # Force (useful for debugging)
 
-        # Try to commit
+        ghp_import_cmd.append(str(deploy_dir))  # Directory to import
+
+        if verbose:
+            print(f"   Running: {' '.join(ghp_import_cmd)}")
+
         try:
-            commit_msg = f"Deploy v{version}"
-            if make_latest:
-                commit_msg += " (latest)"
-
-            run_cmd(
-                ["git", "commit", "-m", commit_msg],
-                cwd=gh_pages_dir,
-                capture=not verbose,
-            )
-            print(f"✓ Committed: {commit_msg}")
-            has_changes = True
-
+            run_cmd(ghp_import_cmd, capture=not verbose)
+            print(f"✓ Deployed to gh-pages branch")
+            if push:
+                print(f"✓ Pushed to remote")
         except subprocess.CalledProcessError as e:
-            # Check if it's "nothing to commit" or a real error
-            if "nothing to commit" in str(e.stderr) or "nothing to commit" in str(
-                e.stdout
-            ):
-                print("ℹ️  No changes to commit (version already exists)")
-                has_changes = False
-            else:
-                # Real error - show it and re-raise
-                print(f"❌ Commit failed: {e}")
-                if verbose:
-                    print(f"   stderr: {e.stderr}")
-                    print(f"   stdout: {e.stdout}")
-                raise
-
-        # Step 7: Push to remote (even if no new commits, ensures branch exists)
-        if push and has_changes:
-            print(f"\n📤 Step 7: Pushing to gh-pages...")
-            if verbose:
-                print(f"   Running: git push origin gh-pages")
-                print(f"   Working dir: {gh_pages_dir}")
-
-            try:
-                output = run_cmd(
-                    ["git", "push", "origin", "gh-pages"],
-                    cwd=gh_pages_dir,
-                    capture=True,
-                )
-                if output and verbose:
-                    print(f"   Push output: {output}")
-                print(f"✓ Pushed to gh-pages")
-            except subprocess.CalledProcessError as e:
-                print(f"❌ Push failed: {e}")
-                if verbose:
-                    print(f"   stdout: {e.stdout}")
-                    print(f"   stderr: {e.stderr}")
-                raise
-        elif push and not has_changes:
-            print(f"\n⏭️  Step 7: Skipping push (no changes)")
-        else:
-            print(f"\n⏭️  Step 7: Skipping push (--no-push)")
+            print(f"❌ ghp-import failed: {e}")
+            if verbose and e.stderr:
+                print(f"   stderr: {e.stderr}")
+            return False
 
     # Success!
     print(f"\n{'=' * 60}")
@@ -287,26 +211,26 @@ def deploy_version(version, make_latest=True, push=True, verbose=False):
     return True
 
 
-def generate_index(gh_pages_dir):
-    """Generate version selector index.html."""
+def generate_index(deploy_dir, version_list):
+    """Generate version selector index.html.
 
-    # Find all version directories
+    Args:
+        deploy_dir: Directory where index.html will be created
+        version_list: List of version directory names (e.g., ['v3.0', 'v2.0', 'v1.0'])
+    """
+
+    # Parse version information
     versions = []
-    for item in gh_pages_dir.iterdir():
-        if item.is_dir() and item.name.startswith("v"):
-            version_num = item.name[1:]  # Remove 'v' prefix
+    for version_dir in version_list:
+        if version_dir.startswith("v"):
+            version_num = version_dir[1:]  # Remove 'v' prefix
 
-            # Get modification time
-            try:
-                mtime = item.stat().st_mtime
-                date_str = datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
-            except:
-                date_str = "Unknown"
+            # Use current date for new versions, or "Published" for existing
+            date_str = datetime.now().strftime("%Y-%m-%d")
 
-            versions.append({"num": version_num, "dir": item.name, "date": date_str})
+            versions.append({"num": version_num, "dir": version_dir, "date": date_str})
 
     # Sort by version number (newest first)
-    # Handle versions with suffixes like "1.0.0-draft" or "0.0.1-test"
     def version_sort_key(v):
         # Split on dash to separate version from suffix
         parts = v["num"].split("-")[0].split(".")
@@ -465,7 +389,7 @@ def generate_index(gh_pages_dir):
 </html>
 """
 
-    index_file = gh_pages_dir / "index.html"
+    index_file = deploy_dir / "index.html"
     index_file.write_text(html, encoding="utf-8")
 
 
@@ -506,6 +430,12 @@ Examples:
 
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 
+    parser.add_argument(
+        "--skip-build",
+        action="store_true",
+        help="Skip build step (use existing build/index.html)",
+    )
+
     args = parser.parse_args()
 
     # Validate version format (basic check)
@@ -522,7 +452,11 @@ Examples:
         sys.exit(1)
 
     success = deploy_version(
-        args.version, make_latest=args.make_latest, push=args.push, verbose=args.verbose
+        args.version,
+        make_latest=args.make_latest,
+        push=args.push,
+        verbose=args.verbose,
+        skip_build=args.skip_build,
     )
 
     sys.exit(0 if success else 1)
