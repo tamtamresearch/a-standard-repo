@@ -89,8 +89,8 @@ a-standard-repo/
 │   └── config.js        # ReSpec configuration
 │
 ├── scripts/
-│   ├── build-spec.js    # Puppeteer-based ReSpec builder
-│   └── deploy-version.py # Version deployment automation
+│   ├── build-spec.js    # Custom ReSpec builder (optional, for reference)
+│   └── deploy-version.py # Version deployment automation (uses ghp-import)
 │
 ├── .github/workflows/
 │   ├── ci.yml           # PR validation
@@ -136,22 +136,32 @@ Versions follow [Semantic Versioning](https://semver.org/):
 
 ### Build Process
 
-1. ReSpec source loaded in headless browser (Puppeteer)
-2. ReSpec JavaScript processes the document
-3. Processed HTML extracted
-4. Static HTML saved to `build/index.html`
+The build uses the official **ReSpec CLI** tool:
+
+1. ReSpec source (`source/index.html`) is loaded in a headless browser
+2. ReSpec JavaScript processes the document (generates table of contents, references, etc.)
+3. Processed HTML is extracted and saved to `build/index.html`
+4. Result is a static, self-contained HTML file (no runtime JavaScript needed)
+
+**Key points:**
+- Uses the `respec` npm package CLI (which internally uses Puppeteer)
+- No custom build scripts needed - just `npm run build`
+- Output is ~67KB static HTML, ready for hosting anywhere
 
 ### Deployment Process
 
 1. Git tag triggers GitHub Actions
-2. Build script generates static HTML
-3. Deployment script:
-   - Clones gh-pages branch
-   - Copies HTML to `vX.Y.Z/` directory
-   - Updates `latest/` symlink
-   - Generates version selector page
-   - Commits and pushes to gh-pages
-4. GitHub Pages publishes automatically
+2. ReSpec CLI generates static HTML
+3. Deployment script (uses `ghp-import`):
+   - Creates deployment directory structure (`vX.Y.Z/`, `latest/`, `index.html`)
+   - Uses `ghp-import` to commit to gh-pages branch
+   - Pushes to GitHub automatically
+4. GitHub Pages publishes within ~30 seconds
+
+**Key points:**
+- Uses `ghp-import` for reliable CI deployment (no manual git operations)
+- No need to clone gh-pages or manage git credentials
+- Works in CI environments without authentication issues
 
 ## 🧪 Testing Locally
 
