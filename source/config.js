@@ -19,13 +19,13 @@ var respecConfig = {
   // ===== Version Information =====
   
   // This version (will be updated per version)
-  thisVersion: "https://tamtamresearch.github.io/a-standard-repo/v2.0/",
+  thisVersion: "https://tamtamresearch.github.io/a-standard-repo/v3.0/",
   
   // Latest version
   latestVersion: "https://tamtamresearch.github.io/a-standard-repo/latest/",
   
   // Previous version (null for first version)
-  prevVersion: "https://tamtamresearch.github.io/a-standard-repo/v1.0/",
+  prevVersion: "https://tamtamresearch.github.io/a-standard-repo/v2.0/",
   
   // Editor's draft
   edDraftURI: "https://github.com/tamtamresearch/a-standard-repo",
@@ -83,7 +83,7 @@ var respecConfig = {
   // ===== Other Options =====
   
   // Subtitle
-  subtitle: "Version 2.0 - Enhanced Features",
+  subtitle: "Version 3.0 - Production Ready",
   
   // Copyright
   copyrightStart: "2026",
